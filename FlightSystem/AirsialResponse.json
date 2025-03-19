@@ -2,7 +2,7 @@
   "Response": {
     "message": "Flight Successfully fetched",
     "Data": {
-      "outbound": [
+      "outbound":   [
         {
           "FLIGHT_NO": "PF123",
           "DEPARTURE_DATE": "20-12-2024",

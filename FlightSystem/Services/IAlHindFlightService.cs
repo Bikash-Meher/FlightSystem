@@ -2,7 +2,7 @@
 
 namespace FlightSystem.Services
 {
-    public interface IFlightService
+    public interface IAlHindFlightService
     {
         Task<List<FlightDetails>> GetFlightsAsync();
     }

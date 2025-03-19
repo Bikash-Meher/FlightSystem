@@ -8,7 +8,7 @@ using FlightSystem.Models;
 
 namespace FlightSystem.Services
 {
-    public class AlHindService : IFlightService
+    public class AlHindService : IAlHindFlightService
     {
         private readonly string _alhindPath = "AlhindResponse.json";
 
@@ -49,9 +49,9 @@ namespace FlightSystem.Services
 
                         fareDetails[ptc] = new FareBreakdown
                         {
-                            BaseFare = baseFare,
-                            Tax = finalTax,
-                            TotalFare = totalFare
+                            BasePrice = baseFare,
+                            Taxs = finalTax,
+                            TotalPrice = totalFare
                         };
                     }
 
