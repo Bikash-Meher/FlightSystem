@@ -1,0 +1,525 @@
+{
+  "Response": {
+    "message": "Flight Successfully fetched",
+    "Data": {
+      "outbound": [
+        {
+          "FLIGHT_NO": "PF123",
+          "DEPARTURE_DATE": "20-12-2024",
+          "DEPARTURE_TIME": "13:00",
+          "ARRIVAL_TIME": "15:00",
+          "DEPARTURE_UTC": "20-12-2024 08:00",
+          "ARRIVAL_UTC": "20-12-2024 10:00",
+          "JOURNEY_CODE": "396584",
+          "CLASS_CODE": "1079",
+          "ORGN": "KHI",
+          "DEST": "ISB",
+          "CURRENCY": "SAR",
+          "DURATION": "2h 0m",
+          "BAGGAGE_FARE": [
+            {
+              "sub_class_id": "2",
+              "sub_class_desc": "Standard",
+              "abbr": "SB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 0,
+              "actual_amount": 0,
+              "weight": "20",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 248,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 548
+                },
+                "CHILD": {
+                  "BASIC_FARE": 186,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 419
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "3",
+              "sub_class_desc": "Value",
+              "abbr": "EB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 14,
+              "actual_amount": 14,
+              "weight": "30",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 262,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 562
+                },
+                "CHILD": {
+                  "BASIC_FARE": 200,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 433
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "4",
+              "sub_class_desc": "Plus ",
+              "abbr": "PB",
+              "no_of_bags": "2",
+              "adv_tax": "0",
+              "amount": 27,
+              "actual_amount": 27,
+              "weight": "40",
+              "piece": "2",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 275,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 575
+                },
+                "CHILD": {
+                  "BASIC_FARE": 213,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 446
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            }
+          ]
+        },
+        {
+          "FLIGHT_NO": "PF125",
+          "DEPARTURE_DATE": "20-12-2024",
+          "DEPARTURE_TIME": "19:00",
+          "ARRIVAL_TIME": "21:00",
+          "DEPARTURE_UTC": "20-12-2024 14:00",
+          "ARRIVAL_UTC": "20-12-2024 16:00",
+          "JOURNEY_CODE": "402383",
+          "CLASS_CODE": "1079",
+          "ORGN": "KHI",
+          "DEST": "ISB",
+          "CURRENCY": "SAR",
+          "DURATION": "2h 0m",
+          "BAGGAGE_FARE": [
+            {
+              "sub_class_id": "2",
+              "sub_class_desc": "Standard",
+              "abbr": "SB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 0,
+              "actual_amount": 0,
+              "weight": "20",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 248,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 548
+                },
+                "CHILD": {
+                  "BASIC_FARE": 186,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 419
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "3",
+              "sub_class_desc": "Value",
+              "abbr": "EB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 14,
+              "actual_amount": 14,
+              "weight": "30",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 262,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 562
+                },
+                "CHILD": {
+                  "BASIC_FARE": 200,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 433
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "4",
+              "sub_class_desc": "Plus ",
+              "abbr": "PB",
+              "no_of_bags": "2",
+              "adv_tax": "0",
+              "amount": 27,
+              "actual_amount": 27,
+              "weight": "40",
+              "piece": "2",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 275,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 575
+                },
+                "CHILD": {
+                  "BASIC_FARE": 213,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 446
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "inbound": [
+        {
+          "FLIGHT_NO": "PF124",
+          "DEPARTURE_DATE": "20-12-2024",
+          "DEPARTURE_TIME": "16:00",
+          "ARRIVAL_TIME": "18:00",
+          "DEPARTURE_UTC": "20-12-2024 11:00",
+          "ARRIVAL_UTC": "20-12-2024 13:00",
+          "JOURNEY_CODE": "401826",
+          "CLASS_CODE": "1079",
+          "ORGN": "ISB",
+          "DEST": "KHI",
+          "CURRENCY": "SAR",
+          "DURATION": "2h 0m",
+          "BAGGAGE_FARE": [
+            {
+              "sub_class_id": "2",
+              "sub_class_desc": "Standard",
+              "abbr": "SB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 0,
+              "actual_amount": 0,
+              "weight": "20",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 248,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 548
+                },
+                "CHILD": {
+                  "BASIC_FARE": 186,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 419
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "3",
+              "sub_class_desc": "Value",
+              "abbr": "EB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 14,
+              "actual_amount": 14,
+              "weight": "30",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 262,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 562
+                },
+                "CHILD": {
+                  "BASIC_FARE": 200,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 433
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "4",
+              "sub_class_desc": "Plus ",
+              "abbr": "PB",
+              "no_of_bags": "2",
+              "adv_tax": "0",
+              "amount": 27,
+              "actual_amount": 27,
+              "weight": "40",
+              "piece": "2",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 275,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 575
+                },
+                "CHILD": {
+                  "BASIC_FARE": 213,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 446
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            }
+          ]
+        },
+        {
+          "FLIGHT_NO": "PF126",
+          "DEPARTURE_DATE": "20-12-2024",
+          "DEPARTURE_TIME": "22:00",
+          "ARRIVAL_TIME": "23:59",
+          "DEPARTURE_UTC": "20-12-2024 17:00",
+          "ARRIVAL_UTC": "20-12-2024 18:59",
+          "JOURNEY_CODE": "406176",
+          "CLASS_CODE": "1079",
+          "ORGN": "ISB",
+          "DEST": "KHI",
+          "CURRENCY": "SAR",
+          "DURATION": "1h 59m",
+          "BAGGAGE_FARE": [
+            {
+              "sub_class_id": "2",
+              "sub_class_desc": "Standard",
+              "abbr": "SB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 0,
+              "actual_amount": 0,
+              "weight": "20",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 248,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 548
+                },
+                "CHILD": {
+                  "BASIC_FARE": 186,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 419
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "3",
+              "sub_class_desc": "Value",
+              "abbr": "EB",
+              "no_of_bags": "1",
+              "adv_tax": "0",
+              "amount": 14,
+              "actual_amount": 14,
+              "weight": "30",
+              "piece": "1",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 262,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 562
+                },
+                "CHILD": {
+                  "BASIC_FARE": 200,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 433
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            },
+            {
+              "sub_class_id": "4",
+              "sub_class_desc": "Plus ",
+              "abbr": "PB",
+              "no_of_bags": "2",
+              "adv_tax": "0",
+              "amount": 27,
+              "actual_amount": 27,
+              "weight": "40",
+              "piece": "2",
+              "FARE_PAX_WISE": {
+                "ADULT": {
+                  "BASIC_FARE": 275,
+                  "SURCHARGE": "269",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 575
+                },
+                "CHILD": {
+                  "BASIC_FARE": 213,
+                  "SURCHARGE": "202",
+                  "FEES": "1",
+                  "TAX": 30,
+                  "TOTAL": 446
+                },
+                "INFANT": {
+                  "BASIC_FARE": "0",
+                  "SURCHARGE": "0",
+                  "FEES": "1",
+                  "TAX": "21",
+                  "TOTAL": 22
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "availableFareTypes": [
+        {
+          "SUB_CLASS_ID": "2",
+          "SUB_CLASS_DESC": "Standard",
+          "ABBR": "SB",
+          "NO_OF_BAGS": "1",
+          "ADV_TAX": "0",
+          "AMOUNT": "0",
+          "ACTUAL_AMOUNT": "0",
+          "WEIGHT": "20",
+          "PIECE": "1",
+          "DESCRIPTION": "1 Piece(s) ( Total 20 KG )"
+        },
+        {
+          "SUB_CLASS_ID": "3",
+          "SUB_CLASS_DESC": "Value",
+          "ABBR": "EB",
+          "NO_OF_BAGS": "1",
+          "ADV_TAX": "0",
+          "AMOUNT": "4",
+          "ACTUAL_AMOUNT": "4",
+          "WEIGHT": "30",
+          "PIECE": "1",
+          "DESCRIPTION": "1 Piece(s) ( Total 30 KG )"
+        },
+        {
+          "SUB_CLASS_ID": "4",
+          "SUB_CLASS_DESC": "Plus ",
+          "ABBR": "PB",
+          "NO_OF_BAGS": "2",
+          "ADV_TAX": "0",
+          "AMOUNT": "6",
+          "ACTUAL_AMOUNT": "6",
+          "WEIGHT": "40",
+          "PIECE": "2",
+          "DESCRIPTION": "2 Piece(s) ( Total 40 KG )"
+        }
+      ]
+    }
+  },
+  "Success": true
+}
+
+
+
