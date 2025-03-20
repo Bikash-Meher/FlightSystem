@@ -132,7 +132,8 @@ namespace FlightSystem.Services
                 CabinType = flight.TryGetProperty("CABIN", out JsonElement cabinType) ? cabinType.GetString() : string.Empty,
                 ClassCode = flight.TryGetProperty("CLASS_CODE", out JsonElement classCode) ? classCode.GetString() : string.Empty,
                 Currency = flight.TryGetProperty("CURRENCY", out JsonElement currency) ? currency.GetString() : string.Empty,
-                BaggageFareDetails = baggageFareDetails
+                BaggageFareDetails = baggageFareDetails,
+
             };
         }
 
