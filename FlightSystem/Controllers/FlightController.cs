@@ -19,7 +19,7 @@ namespace FlightSystem.Controllers
             _alHindService = alHindService;
         }
 
-        [HttpPost]
+        [HttpPost("SearchFight")]
         public async Task<IActionResult> GetFlight([FromBody] AirLine airline)
         {
             if (airline == null || string.IsNullOrEmpty(airline.airlineName))
