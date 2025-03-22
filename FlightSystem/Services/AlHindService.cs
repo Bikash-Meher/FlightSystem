@@ -39,11 +39,12 @@ namespace FlightSystem.Services
                     TimeSpan duration = arrivalDateTime - departureDateTime;
 
 
-                    var flightFareOptions = flight.GetProperty("FlightFares").EnumerateArray();
+                    var flightFares = flight.GetProperty("FlightFares").EnumerateArray();
 
-                    foreach (var fareOption in flightFareOptions)
+                    foreach (var fareOption in flightFares)
                     {
                         string fareName = fareOption.GetProperty("FareName").GetString();
+
                         var fareDetails = new Dictionary<string, FareBreakdown>();
 
                         var fares = fareOption.GetProperty("Fares").EnumerateArray();
