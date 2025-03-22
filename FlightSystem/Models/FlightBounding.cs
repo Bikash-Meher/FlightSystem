@@ -27,6 +27,7 @@ namespace FlightSystem.Models
         public string DepartureTerminal { get; set; }
         public string ArrivalTerminal { get; set; }
         public string Currency { get; set; }
+        public List<TotalPriceBreakdown> TotalFlightFare { get; set; }
         public List<BaggageFare> BaggageFareDetails { get; set; }
 
 
@@ -45,6 +46,16 @@ namespace FlightSystem.Models
     }
 
     public class PriceBreakdown
+    {
+        public decimal BasePrice { get; set; }
+        public decimal Charges { get; set; }
+        public decimal Fees { get; set; }
+        public decimal Taxs { get; set; }
+        public decimal TotalPrice { get; set; }
+
+    }
+
+    public class TotalPriceBreakdown
     {
         public decimal BasePrice { get; set; }
         public decimal Charges { get; set; }

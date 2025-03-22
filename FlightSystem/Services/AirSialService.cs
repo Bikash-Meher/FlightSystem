@@ -84,6 +84,12 @@ namespace FlightSystem.Services
                 string flightNumber = new string(fullFlightCode.Where(char.IsDigit).ToArray());
                 string airlineCode = new string(fullFlightCode.Where(char.IsLetter).ToArray());
 
+                decimal BaseFare = 0;
+                decimal Charges = 0;
+                decimal Fees = 0;
+                decimal Taxes = 0;
+                decimal TotalPrice = 0;
+
                 foreach (var baggage in baggageDetails.EnumerateArray())
                 {
                     var ticketPrices = new List<PriceBreakdown>();
@@ -92,16 +98,39 @@ namespace FlightSystem.Services
                     {
                         foreach (var farePrice in farePaxWiseElement.EnumerateObject())
                         {
+
+                            decimal baseFare = farePrice.Value.TryGetProperty("BASIC_FARE", out JsonElement baseFareElement) ? GetDecimalValue(baseFareElement) : 0;
+                            decimal surcharge = farePrice.Value.TryGetProperty("SURCHARGE", out JsonElement surchargeElement) ? GetDecimalValue(surchargeElement) : 0;
+                            decimal fees = farePrice.Value.TryGetProperty("FEES", out JsonElement feesElement) ? GetDecimalValue(feesElement) : 0;
+                            decimal tax = farePrice.Value.TryGetProperty("TAX", out JsonElement taxElement) ? GetDecimalValue(taxElement) : 0;
+                            decimal totalFare = farePrice.Value.TryGetProperty("TOTAL", out JsonElement totalFareElement) ? GetDecimalValue(totalFareElement) : 0;
+
                             ticketPrices.Add(new PriceBreakdown
                             {
-                                BasePrice = farePrice.Value.TryGetProperty("BASIC_FARE", out JsonElement baseFare) ? GetDecimalValue(baseFare) : 0,
-                                Charges = farePrice.Value.TryGetProperty("SURCHARGE", out JsonElement surcharge) ? GetDecimalValue(surcharge) : 0,
-                                Fees = farePrice.Value.TryGetProperty("FEES", out JsonElement fees) ? GetDecimalValue(fees) : 0,
-                                Taxs = farePrice.Value.TryGetProperty("TAX", out JsonElement tax) ? GetDecimalValue(tax) : 0,
-                                TotalPrice = farePrice.Value.TryGetProperty("TOTAL", out JsonElement totalFare) ? GetDecimalValue(totalFare) : 0
+                                BasePrice = baseFare,
+                                Charges = surcharge,
+                                Fees = fees,
+                                Taxs = tax,
+                                TotalPrice = totalFare
                             });
+
+                            BaseFare += baseFare;
+                            Charges += surcharge;
+                            Fees += fees;
+                            Taxes += tax;
+                            TotalPrice += totalFare;
                         }
                     }
+
+                    var totalFlightFare = new TotalPriceBreakdown
+                    {
+                        BasePrice = BaseFare,
+                        Charges = Charges,
+                        Fees = Fees,
+                        Taxs = Taxes,
+                        TotalPrice = TotalPrice
+                    };
+
 
                     var baggageFare = new BaggageFare
                     {
@@ -126,7 +155,7 @@ namespace FlightSystem.Services
                         AirlineCode = airlineCode,
                         DepartureDate = flight.TryGetProperty("DEPARTURE_DATE", out JsonElement departureDate) ? departureDate.GetString() : string.Empty,
                         DepartureTime = flight.TryGetProperty("DEPARTURE_TIME", out JsonElement departureTime) ? departureTime.GetString() : string.Empty,
-                        ArrivalDate = flight.TryGetProperty("DEPARTURE_DATE", out JsonElement arrivalDate) ? arrivalDate.GetString() : string.Empty, // ✅ Fix: Correct arrival date
+                        ArrivalDate = flight.TryGetProperty("DEPARTURE_DATE", out JsonElement arrivalDate) ? arrivalDate.GetString() : string.Empty,
                         ArrivalTime = flight.TryGetProperty("ARRIVAL_TIME", out JsonElement arrivalTime) ? arrivalTime.GetString() : string.Empty,
                         Origin = flight.TryGetProperty("ORGN", out JsonElement origin) ? origin.GetString() : string.Empty,
                         Destination = flight.TryGetProperty("DEST", out JsonElement destination) ? destination.GetString() : string.Empty,
@@ -135,6 +164,7 @@ namespace FlightSystem.Services
                         CabinType = flight.TryGetProperty("CABIN", out JsonElement cabinType) ? cabinType.GetString() : string.Empty,
                         ClassCode = baggageFare.ClassType, // Assign Class Type
                         Currency = flight.TryGetProperty("CURRENCY", out JsonElement currency) ? currency.GetString() : string.Empty,
+                        TotalFlightFare = new List<TotalPriceBreakdown> { totalFlightFare },
                         BaggageFareDetails = new List<BaggageFare> { baggageFare }
                     });
                 }
@@ -145,7 +175,7 @@ namespace FlightSystem.Services
         private decimal GetDecimalValue(JsonElement element)
         {
             return element.ValueKind == JsonValueKind.Number ? element.GetDecimal() :
-                   decimal.TryParse(element.GetString(), out decimal value) ? value : 0; // ✅ Fix: Prevent parsing errors
+                   decimal.TryParse(element.GetString(), out decimal value) ? value : 0; 
         }
     }
 }
