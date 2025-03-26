@@ -13,11 +13,13 @@ namespace FlightSystem.Services
     {
         private readonly string _airSialPath = "AirsialResponse.json";
 
-        public async Task<List<FlightBounding>> GetFlightsAsync()
+        public async Task<ApiResponse> GetFlightsAsync()
         {
+            var response = new ApiResponse { Response = new List<FlightBounding>(), Success = false };
+
             if (!File.Exists(_airSialPath))
             {
-                return new List<FlightBounding>();
+                return response;
             }
 
             await using var stream = File.OpenRead(_airSialPath);
@@ -25,17 +27,17 @@ namespace FlightSystem.Services
             {
                 PropertyNameCaseInsensitive = true
             };
-            var response = await JsonSerializer.DeserializeAsync<AirSialResponse>(stream, options);
+            var airSialResponse = await JsonSerializer.DeserializeAsync<AirSialResponse>(stream, options);
 
-            if (response?.Response?.Data == null)
+            if (airSialResponse?.Response?.Data == null)
             {
-                return new List<FlightBounding>();
+                return response;
             }
 
-            var outboundFlights = response.Response.Data.Outbound?.SelectMany(ParseFlight) ?? new List<Bound>();
-            var inboundFlights = response.Response.Data.Inbound?.SelectMany(ParseFlight) ?? new List<Bound>();
+            var outboundFlights = airSialResponse.Response.Data.Outbound?.SelectMany(ParseFlight) ?? new List<Bound>();
+            var inboundFlights = airSialResponse.Response.Data.Inbound?.SelectMany(ParseFlight) ?? new List<Bound>();
 
-            return outboundFlights.Select(outboundFlight => new FlightBounding
+            var flights = outboundFlights.Select(outboundFlight => new FlightBounding
             {
                 AirlineName = "AirSial",
                 OutboundJourney = outboundFlight,
@@ -46,6 +48,14 @@ namespace FlightSystem.Services
                     DateTime.TryParse(outboundFlight.DepartureDate, out DateTime outboundDate) &&
                     inboundDate >= outboundDate)
             }).ToList();
+
+            if (flights.Any())
+            {
+                response.Response = flights;
+                response.Success = true;
+            }
+
+            return response;
         }
 
         private List<Bound> ParseFlight(AirSialFlight flight)
@@ -63,49 +73,53 @@ namespace FlightSystem.Services
                 Destination = flight.Destination,
                 Duration = flight.Duration,
                 AvailableSeats = flight.AvailableSeats,
-                DepartureTerminal = null,
-                ArrivalTerminal = null,
                 Currency = flight.Currency,
-
                 TotalFlightFare = new List<TotalPriceBreakdown>
-                                {
-                                    new TotalPriceBreakdown
-                                    {
-                                        BasePrice = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.BasePrice)) ?? 0,
-                                        Charges = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.Charges)) ?? 0,
-                                        Fees = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.Fees)) ?? 0,
-                                        Taxs = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.Taxs)) ?? 0,
-                                        TotalPrice = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.TotalPrice)) ?? 0
-                                    }
-                                },
+                {
+                    new TotalPriceBreakdown
+                    {
+                        BasePrice = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.BasePrice)) ?? 0,
+                        Charges = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.Charges)) ?? 0,
+                        Fees = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.Fees)) ?? 0,
+                        Taxs = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.Taxs)) ?? 0,
+                        TotalPrice = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.TotalPrice)) ?? 0
+                    }
+                },
                 BaggageFareDetails = new List<BaggageFare>
-                                    {
-                                        new BaggageFare
-                                        {
-                                            ClassId = baggage.ClassId,
-                                            ClassType = baggage.ClassType,
-                                            Bags = baggage.Bags,
-                                            Amount = baggage.Amount,
-                                            ActualAmount = baggage.ActualAmount,
-                                            Weight = baggage.Weight,
-                                            FarePaxWise = baggage.FarePaxWise?.ToDictionary(
-                                                kvp => kvp.Key, 
-                                                kvp => new PriceBreakdown
-                                                {
-                                                    BasePrice = kvp.Value.GetDecimalValue(kvp.Value.BasePrice),
-                                                    Charges = kvp.Value.GetDecimalValue(kvp.Value.Charges),
-                                                    Fees = kvp.Value.GetDecimalValue(kvp.Value.Fees),
-                                                    Taxs = kvp.Value.GetDecimalValue(kvp.Value.Taxs),
-                                                    TotalPrice = kvp.Value.GetDecimalValue(kvp.Value.TotalPrice)
-                                                }
-                                            ) ?? new Dictionary<string, PriceBreakdown>()
-                                        }
-                                    }
+                {
+                    new BaggageFare
+                    {
+                        ClassId = baggage.ClassId,
+                        ClassType = baggage.ClassType,
+                        Bags = baggage.Bags,
+                        Amount = baggage.Amount,
+                        ActualAmount = baggage.ActualAmount,
+                        Weight = baggage.Weight,
+                        FarePaxWise = baggage.FarePaxWise?.ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => new PriceBreakdown
+                            {
+                                BasePrice = kvp.Value.GetDecimalValue(kvp.Value.BasePrice),
+                                Charges = kvp.Value.GetDecimalValue(kvp.Value.Charges),
+                                Fees = kvp.Value.GetDecimalValue(kvp.Value.Fees),
+                                Taxs = kvp.Value.GetDecimalValue(kvp.Value.Taxs),
+                                TotalPrice = kvp.Value.GetDecimalValue(kvp.Value.TotalPrice)
+                            }
+                        ) ?? new Dictionary<string, PriceBreakdown>()
+                    }
+                }
             }).ToList() ?? new List<Bound>();
 
             return parsedFlights;
         }
     }
+
+    public class ApiResponse
+    {
+        public List<FlightBounding> Response { get; set; }
+        public bool Success { get; set; }
+    }
+
 
     public class AirSialResponse
     {
@@ -186,7 +200,7 @@ namespace FlightSystem.Services
     public class AirSialPaxWise
     {
         [JsonPropertyName("BASIC_FARE")]
-        public object BasePrice { get; set; }  // Now stores values as string
+        public object BasePrice { get; set; } 
 
         [JsonPropertyName("SURCHARGE")]
         public object Charges { get; set; }
@@ -202,7 +216,10 @@ namespace FlightSystem.Services
 
         public decimal GetDecimalValue(object value)
         {
-            if (value == null) return 0;
+            if (value == null)
+            {
+                return 0;
+            }
             return decimal.TryParse(value.ToString(), out decimal result) ? result : 0;
         }
     }

@@ -32,8 +32,11 @@ namespace FlightSystem.Controllers
             switch (airline.airlineName.ToLower())
             {
                 case "airsial":
-                    var airSialFlights = await _airSialService.GetFlightsAsync();
-                    flights.AddRange(airSialFlights);
+                    var airSialResponse = await _airSialService.GetFlightsAsync();
+                    if (airSialResponse.Success)
+                    {
+                        flights.AddRange(airSialResponse.Response);
+                    }
                     break;
 
                 case "alhind":
