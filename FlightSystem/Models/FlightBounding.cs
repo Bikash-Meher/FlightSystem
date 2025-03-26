@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FlightSystem.Services;
+using System.Text.Json.Serialization;
 
 namespace FlightSystem.Models
 {
@@ -35,13 +36,14 @@ namespace FlightSystem.Models
 
     public class BaggageFare
     {
-        public byte? ClassId { get; set; }
+        public string ClassId { get; set; }
         public string ClassType { get; set; }
         public string Bags { get; set; }
         public int Amount { get; set; }
         public int ActualAmount { get; set; }
         public string Weight { get; set; }
-        public List<PriceBreakdown> FarePaxWise { get; set; }
+        public Dictionary<string, PriceBreakdown> FarePaxWise { get; set; }
+
 
     }
 
