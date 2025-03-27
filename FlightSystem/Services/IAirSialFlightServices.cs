@@ -4,6 +4,6 @@ namespace FlightSystem.Services
 {
     public interface IAirSialFlightServices
     {
-        Task<ApiResponse> GetFlightsAsync();
+        Task<ApiAirSialResponse> GetFlightsAsync();
     }
 }

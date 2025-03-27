@@ -13,9 +13,9 @@ namespace FlightSystem.Services
     {
         private readonly string _airSialPath = "AirsialResponse.json";
 
-        public async Task<ApiResponse> GetFlightsAsync()
+        public async Task<ApiAirSialResponse> GetFlightsAsync()
         {
-            var response = new ApiResponse { Response = new List<AirSialFlightBounding>(), Success = false };
+            var response = new ApiAirSialResponse { Response = new List<AirSialFlightBounding>(), Success = false };
 
             if (!File.Exists(_airSialPath))
             {
@@ -114,7 +114,7 @@ namespace FlightSystem.Services
         }
     }
 
-    public class ApiResponse
+    public class ApiAirSialResponse
     {
         public List<AirSialFlightBounding> Response { get; set; }
         public bool Success { get; set; }
