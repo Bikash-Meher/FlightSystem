@@ -12,9 +12,9 @@ namespace FlightSystem.Services
     {
         private readonly string _alhindPath = "AlhindResponse.json";
 
-        public async Task<List<FlightDetails>> GetFlightsAsync()
+        public async Task<List<AlHindFlightBounding>> GetFlightsAsync()
         {
-            var journeys = new List<FlightDetails>();
+            var journeys = new List<AlHindFlightBounding>();
 
             if (File.Exists(_alhindPath))
             {
@@ -76,7 +76,7 @@ namespace FlightSystem.Services
                         });
 
 
-                        journeys.Add(new FlightDetails
+                        journeys.Add(new AlHindFlightBounding
                         {
                             AirlineName = "AlHind",
                             FullFlightCode = fullFlightCode,

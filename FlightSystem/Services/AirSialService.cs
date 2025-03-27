@@ -15,7 +15,7 @@ namespace FlightSystem.Services
 
         public async Task<ApiResponse> GetFlightsAsync()
         {
-            var response = new ApiResponse { Response = new List<FlightBounding>(), Success = false };
+            var response = new ApiResponse { Response = new List<AirSialFlightBounding>(), Success = false };
 
             if (!File.Exists(_airSialPath))
             {
@@ -37,7 +37,7 @@ namespace FlightSystem.Services
             var outboundFlights = airSialResponse.Response.Data.Outbound?.SelectMany(ParseFlight) ?? new List<Bound>();
             var inboundFlights = airSialResponse.Response.Data.Inbound?.SelectMany(ParseFlight) ?? new List<Bound>();
 
-            var flights = outboundFlights.Select(outboundFlight => new FlightBounding
+            var flights = outboundFlights.Select(outboundFlight => new AirSialFlightBounding
             {
                 AirlineName = "AirSial",
                 OutboundJourney = outboundFlight,
@@ -116,7 +116,7 @@ namespace FlightSystem.Services
 
     public class ApiResponse
     {
-        public List<FlightBounding> Response { get; set; }
+        public List<AirSialFlightBounding> Response { get; set; }
         public bool Success { get; set; }
     }
 

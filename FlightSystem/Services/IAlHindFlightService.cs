@@ -4,6 +4,6 @@ namespace FlightSystem.Services
 {
     public interface IAlHindFlightService
     {
-        Task<List<FlightDetails>> GetFlightsAsync();
+        Task<List<AlHindFlightBounding>> GetFlightsAsync();
     }
 }

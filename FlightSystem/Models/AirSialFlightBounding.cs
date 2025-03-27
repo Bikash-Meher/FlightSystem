@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FlightSystem.Models
 {
-    public class FlightBounding
+    public class AirSialFlightBounding
     {
         public string AirlineName { get; set; }
         public Bound? OutboundJourney { get; set; }

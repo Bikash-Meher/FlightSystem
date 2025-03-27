@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace FlightSystem.Models
 {
 
-    public class FlightDetails
+    public class AlHindFlightBounding
     {
         public string AirlineName { get; set; }
         public string FullFlightCode { get; set; }
