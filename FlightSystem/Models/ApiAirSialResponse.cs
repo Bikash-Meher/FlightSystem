@@ -200,7 +200,7 @@ namespace FlightSystem.Models
                         ) ?? new Dictionary<string, ApiPriceBreakdown>()
                     }
                 }
-            }).ToList();
+        }).ToList();
 
             return parseFlight;
         }

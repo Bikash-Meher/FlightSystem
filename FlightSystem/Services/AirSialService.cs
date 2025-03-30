@@ -19,7 +19,7 @@ namespace FlightSystem.Services
             return rawResponse != null ? AirSialMapper.MapToCommonResponse(rawResponse) : null;
         }
 
-        private async Task<ApiAirSialResponse?> GetRawFlightsAsync()
+        private async Task<AirSialResponse?> GetRawFlightsAsync()
         {
             if (!File.Exists(_airSialPath))
             {
@@ -28,7 +28,7 @@ namespace FlightSystem.Services
 
             await using var stream = File.OpenRead(_airSialPath);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            return await JsonSerializer.DeserializeAsync<ApiAirSialResponse>(stream, options);
+            return await JsonSerializer.DeserializeAsync<AirSialResponse>(stream, options);
         }
     }
 }
