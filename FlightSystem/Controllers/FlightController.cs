@@ -59,6 +59,6 @@ namespace FlightSystem.Controllers
 
     public class AirLine
     {
-        public string airlineName { get; set; }
+        public required string airlineName { get; set; }
     }
 }

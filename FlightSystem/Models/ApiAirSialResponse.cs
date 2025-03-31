@@ -10,19 +10,19 @@ namespace FlightSystem.Models
 
     public class FlightBounding
     {
-        public string AirlineName { get; set; }
+        public required string AirlineName { get; set; }
         public ApiBound? OutboundJourney { get; set; }
         public ApiBound? InboundJourney { get; set; }
     }
 
     public class AirSialResponse
     {
-        public AirSialData Response { get; set; }
+        public required AirSialData Response { get; set; }
     }
 
     public class AirSialData
     {
-        public FlightData Data { get; set; }
+        public required FlightData Data { get; set; }
     }
 
     public class FlightData
@@ -34,34 +34,34 @@ namespace FlightSystem.Models
     public class AirSialFlight
     {
         [JsonPropertyName("FLIGHT_NO")]
-        public string FlightNo { get; set; }
+        public required string FlightNo { get; set; }
 
         [JsonPropertyName("DEPARTURE_DATE")]
-        public string DepartureDate { get; set; }
+        public required string DepartureDate { get; set; }
 
         [JsonPropertyName("DEPARTURE_TIME")]
-        public string DepartureTime { get; set; }
+        public required string DepartureTime { get; set; }
 
         [JsonPropertyName("ARRIVAL_TIME")]
-        public string ArrivalTime { get; set; }
+        public required string ArrivalTime { get; set; }
 
         [JsonPropertyName("ORGN")]
-        public string Origin { get; set; }
+        public required string Origin { get; set; }
 
         [JsonPropertyName("DEST")]
-        public string Destination { get; set; }
+        public required string Destination { get; set; }
 
         [JsonPropertyName("DURATION")]
-        public string Duration { get; set; }
+        public required string Duration { get; set; }
 
         [JsonPropertyName("SEATS_AVAILABLE")]
         public int AvailableSeats { get; set; }
 
-        [JsonPropertyName("CABIN")]
-        public string Cabin { get; set; }
+        [JsonPropertyName("CLASS_CODE")]
+        public string? ClassCode { get; set; }
 
         [JsonPropertyName("CURRENCY")]
-        public string Currency { get; set; }
+        public required string Currency { get; set; }
 
         [JsonPropertyName("BAGGAGE_FARE")]
         public List<AirSialFare> BaggageFare { get; set; } = new();
@@ -70,13 +70,13 @@ namespace FlightSystem.Models
     public class AirSialFare
     {
         [JsonPropertyName("sub_class_id")]
-        public string ClassId { get; set; }
+        public string? ClassId { get; set; }
 
         [JsonPropertyName("sub_class_desc")]
-        public string ClassType { get; set; }
+        public required string ClassType { get; set; }
 
         [JsonPropertyName("no_of_bags")]
-        public string Bags { get; set; }
+        public string? Bags { get; set; }
 
         [JsonPropertyName("amount")]
         public int Amount { get; set; }
@@ -85,7 +85,7 @@ namespace FlightSystem.Models
         public int ActualAmount { get; set; }
 
         [JsonPropertyName("weight")]
-        public string Weight { get; set; }
+        public string? Weight { get; set; }
 
         [JsonPropertyName("FARE_PAX_WISE")]
         public Dictionary<string, AirSialPaxWise> FarePaxWise { get; set; } = new();
@@ -94,19 +94,19 @@ namespace FlightSystem.Models
     public class AirSialPaxWise
     {
         [JsonPropertyName("BASIC_FARE")]
-        public object BasePrice { get; set; }
+        public required object BasePrice { get; set; }
 
         [JsonPropertyName("SURCHARGE")]
-        public object Charges { get; set; }
+        public required object Charges { get; set; }
 
         [JsonPropertyName("FEES")]
-        public object Fees { get; set; }
+        public required object Fees { get; set; }
 
         [JsonPropertyName("TAX")]
-        public object Taxs { get; set; }
+        public required object Taxs { get; set; }
 
         [JsonPropertyName("TOTAL")]
-        public object TotalPrice { get; set; }
+        public required object TotalPrice { get; set; }
 
         public decimal GetDecimalValue(object value)
         {
@@ -114,9 +114,9 @@ namespace FlightSystem.Models
         }
     }
 
-    public static class AirSialMapper
+    public static class AirSialMapping
     {
-        public static ApiAirSialResponse MapToCommonResponse(AirSialResponse airSialResponse)
+        public static ApiAirSialResponse AirSialFlights(AirSialResponse airSialResponse)
         {
             var response = new ApiAirSialResponse { Response = new List<FlightBounding>(), Success = false };
 
@@ -165,10 +165,11 @@ namespace FlightSystem.Models
                 Destination = flight.Destination,
                 Duration = flight.Duration,
                 AvailableSeats = flight.AvailableSeats,
+                ClassCode = flight.ClassCode,
                 Currency = flight.Currency,
-                TotalFlightFare = new List<ApiTotalPriceBreakdown>
+                TotalFlightFare = new List<ApiPriceBreakdown>
                 {
-                    new ApiTotalPriceBreakdown
+                    new ApiPriceBreakdown
                     {
                         BasePrice = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.BasePrice)) ?? 0,
                         Charges = baggage.FarePaxWise?.Values.Sum(p => p.GetDecimalValue(p.Charges)) ?? 0,
@@ -200,7 +201,7 @@ namespace FlightSystem.Models
                         ) ?? new Dictionary<string, ApiPriceBreakdown>()
                     }
                 }
-        }).ToList();
+            }).ToList();
 
             return parseFlight;
         }

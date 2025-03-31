@@ -25,14 +25,14 @@ namespace FlightSystem.Services
                 PropertyNameCaseInsensitive = true
             };
 
-            var flightResponse = JsonSerializer.Deserialize<AlHindResponse>(jsonData, options);
+            var flightResponse = JsonSerializer.Deserialize<ApiAlHindResponse>(jsonData, options);
             if (flightResponse?.Journy?.FlightOptions == null)
             {
                 return new List<ApiBound>();
             }
 
             return flightResponse.Journy.FlightOptions
-                .SelectMany(FlightOptionMapper.MapToApiBoundList)
+                .SelectMany(AlHindMapping.AlHindFlights)
                 .ToList();
         }
     }

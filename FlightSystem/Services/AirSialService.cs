@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FlightSystem.Models;
 
@@ -13,22 +11,18 @@ namespace FlightSystem.Services
     {
         private readonly string _airSialPath = "AirsialResponse.json";
 
-        public async Task<ApiAirSialResponse?> GetFlightsAsync()
-        {
-            var rawResponse = await GetRawFlightsAsync();
-            return rawResponse != null ? AirSialMapper.MapToCommonResponse(rawResponse) : null;
-        }
-
-        private async Task<AirSialResponse?> GetRawFlightsAsync()
+        public async Task<ApiAirSialResponse> GetFlightsAsync()
         {
             if (!File.Exists(_airSialPath))
             {
-                return null;
+                return new ApiAirSialResponse { Response = new List<FlightBounding>(), Success = false };
             }
 
             await using var stream = File.OpenRead(_airSialPath);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            return await JsonSerializer.DeserializeAsync<AirSialResponse>(stream, options);
+            var rawResponse = await JsonSerializer.DeserializeAsync<AirSialResponse>(stream, options);
+
+            return rawResponse != null ? AirSialMapping.AirSialFlights(rawResponse) : new ApiAirSialResponse { Response = new List<FlightBounding>(), Success = false };
         }
     }
 }

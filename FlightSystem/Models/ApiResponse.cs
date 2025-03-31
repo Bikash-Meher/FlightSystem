@@ -14,12 +14,11 @@ namespace FlightSystem.Models
         public required string Destination { get; set; }
         public required string Duration { get; set; }
         public int AvailableSeats { get; set; }
-        public required string CabinType { get; set; }
-        public required string ClassCode { get; set; }
+        public string? ClassCode { get; set; }
         public string? DepartureTerminal { get; set; }
         public string? ArrivalTerminal { get; set; }
         public string? Currency { get; set; }
-        public required List<ApiTotalPriceBreakdown> TotalFlightFare { get; set; }
+        public required List<ApiPriceBreakdown> TotalFlightFare { get; set; }
         public required List<ApiBaggageFare> BaggageFareDetails { get; set; }
 
     }
@@ -47,14 +46,14 @@ namespace FlightSystem.Models
 
     }
 
-    public class ApiTotalPriceBreakdown
-    {
-        public decimal BasePrice { get; set; }
-        public decimal Charges { get; set; }
-        public decimal Fees { get; set; }
-        public decimal Taxs { get; set; }
-        public decimal TotalPrice { get; set; }
+    //public class ApiTotalPriceBreakdown
+    //{
+    //    public decimal BasePrice { get; set; }
+    //    public decimal Charges { get; set; }
+    //    public decimal Fees { get; set; }
+    //    public decimal Taxs { get; set; }
+    //    public decimal TotalPrice { get; set; }
 
-    }
+    //}
 }
 

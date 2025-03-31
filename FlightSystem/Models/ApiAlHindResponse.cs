@@ -5,65 +5,93 @@ using System.Text.Json.Serialization;
 
 namespace FlightSystem.Models
 {
-    public class AlHindResponse
+    public class ApiAlHindResponse
     {
         [JsonPropertyName("Journy")]
-        public Journy Journy { get; set; }
+        public required Journy Journy { get; set; }
     }
 
     public class Journy
     {
         [JsonPropertyName("FlightOptions")]
-        public List<FlightOption> FlightOptions { get; set; }
+        public required List<FlightOption> FlightOptions { get; set; }
     }
 
     public class FlightOption
     {
-        public string Key { get; set; }
-        public string TicketingCarrier { get; set; }
+        [JsonPropertyName("AvailableSeat")]
         public int AvailableSeat { get; set; }
-        public List<FlightLeg> FlightLegs { get; set; }
-        public List<FlightFare> FlightFares { get; set; }
+
+        [JsonPropertyName("FlightLegs")]
+        public required List<FlightLeg> FlightLegs { get; set; }
+
+        [JsonPropertyName("FlightFares")]
+        public required List<FlightFare> FlightFares { get; set; }
     }
 
     public class FlightLeg
     {
-        public string FlightNo { get; set; }
-        public string AirlineCode { get; set; }
-        public string Origin { get; set; }
-        public string Destination { get; set; }
-        public string DepartureTime { get; set; }
-        public string ArrivalTime { get; set; }
-        public string DepartureTerminal { get; set; }
-        public string ArrivalTerminal { get; set; }
+        [JsonPropertyName("FlightNo")]
+        public required string FlightNo { get; set; }
+
+        [JsonPropertyName("AirlineCode")]
+        public required string AirlineCode { get; set; }
+
+        [JsonPropertyName("Origin")]
+        public required string Origin { get; set; }
+
+        [JsonPropertyName("Destination")]
+        public required string Destination { get; set; }
+
+        [JsonPropertyName("DepartureTime")]
+        public required string DepartureTime { get; set; }
+
+        [JsonPropertyName("ArrivalTime")]
+        public required string ArrivalTime { get; set; }
+
+        [JsonPropertyName("DepartureTerminal")]
+        public required string DepartureTerminal { get; set; }
+
+        [JsonPropertyName("ArrivalTerminal")]
+        public required string ArrivalTerminal { get; set; }
     }
 
     public class FlightFare
     {
-        public string FareName { get; set; }
+        [JsonPropertyName("FareName")]
+        public required string FareName { get; set; }
+
+        [JsonPropertyName("AprxTotalBaseFare")]
         public decimal AprxTotalBaseFare { get; set; }
+
+        [JsonPropertyName("AprxTotalTax")]
         public decimal AprxTotalTax { get; set; }
+
+        [JsonPropertyName("AprxTotalAmount")]
         public decimal AprxTotalAmount { get; set; }
-        public List<FareDetail> Fares { get; set; }
+
+        [JsonPropertyName("Fares")]
+        public required List<FareDetail> Fares { get; set; }
     }
 
     public class FareDetail
     {
-        public string PTC { get; set; }
-        public decimal BaseFare { get; set; }
-        public decimal Tax { get; set; }
-        public decimal Discount { get; set; }
-    }
-    public class AlhindPriceBreakdown
-    {
-        public decimal BaseFare { get; set; }
-        public decimal Tax { get; set; }
-        public decimal Discount { get; set; }
-    }
+        [JsonPropertyName("PTC")]
+        public required string PTC { get; set; }
 
-    public class FlightOptionMapper
+        [JsonPropertyName("BaseFare")]
+        public decimal BaseFare { get; set; }
+
+        [JsonPropertyName("Tax")]
+        public decimal Tax { get; set; }
+
+        [JsonPropertyName("Discount")]
+        public decimal Discount { get; set; }
+    }
+   
+    public class AlHindMapping
     {
-        public static List<ApiBound> MapToApiBoundList(FlightOption flightOption)
+        public static List<ApiBound> AlHindFlights(FlightOption flightOption)
         {
             var apiBounds = new List<ApiBound>();
 
@@ -87,14 +115,14 @@ namespace FlightSystem.Models
                     ArrivalTime = arrivalDateTime.ToString("HH:mm"),
                     Origin = flightLeg.Origin,
                     Destination = flightLeg.Destination,
-                    Duration = string.Format($"{duration.Hours}h { duration.Minutes}m"),
+                    Duration = string.Format($"{duration.Hours}h {duration.Minutes}m"),
                     AvailableSeats = flightOption.AvailableSeat,
                     DepartureTerminal = flightLeg.DepartureTerminal,
                     ArrivalTerminal = flightLeg.ArrivalTerminal,
-                    Currency ="INR" ,
-                    TotalFlightFare = new List<ApiTotalPriceBreakdown>
+                    Currency = "INR",
+                    TotalFlightFare = new List<ApiPriceBreakdown>
                     {
-                        new ApiTotalPriceBreakdown
+                        new ApiPriceBreakdown
                         {
                             BasePrice = fareOption.AprxTotalBaseFare,
                             Taxs = fareOption.AprxTotalTax,
@@ -113,27 +141,14 @@ namespace FlightSystem.Models
                                 TotalPrice = detail.BaseFare + detail.Tax - detail.Discount
                             })
                         }
-                    }
-                };
+                    },
+                                    };
 
                 apiBounds.Add(apiBound);
             }
 
             return apiBounds;
         }
-        private static List<ApiBaggageFare> MapBaggageFareDetails(FlightFare fareOption)
-        {
-            var baggageFare = new ApiBaggageFare
-            {
-                ClassType = fareOption.FareName,
-                FarePaxWise = fareOption.Fares.ToDictionary(detail => detail.PTC, detail => new ApiPriceBreakdown
-                {
-                    BasePrice = detail.BaseFare,
-                    Taxs = detail.Tax,
-                    TotalPrice = detail.BaseFare + detail.Tax - detail.Discount
-                })
-            };
-            return new List<ApiBaggageFare> { baggageFare };
-        }
+       
     }
 }
